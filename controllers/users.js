@@ -96,5 +96,17 @@ module.exports.refreshTokens = (req, res) => {
     accessToken: `Bearer ${accessToken}`,
     refreshToken: refreshToken,
   });
+  req.user = payload;
+}
 
+module.exports.getUser = (req, res) => {
+
+  db.query("SELECT `id` FROM `users` WHERE id = '" + req.user.id + "'", (err, result) => {
+    if (err) {
+      res.status(400).send({ message: err });
+    }
+    else {
+      res.status(200).send(result);
+    }
+  })
 }

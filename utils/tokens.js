@@ -8,7 +8,7 @@ module.exports.createAccessToken = (userId) => {
             type: 'access'
         },
         'secret-key',
-        { expiresIn: 60 }
+        { expiresIn: 600 }
     );
 }
 module.exports.createRefreshToken = (userId) => {
