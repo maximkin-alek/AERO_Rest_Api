@@ -1,12 +1,12 @@
 const db = require('../config/db');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const uuid = require('uuid');
 
-const { createAccessToken, createRefreshToken } = require('../utils/tokens')
+const { createAccessToken, createRefreshToken } = require('../utils/tokens');
 
-module.exports.getAllUsers = (req, res) => {
-  db.query('SELECT id FROM users', (err, result) => {
+// получить список пользователей
+module.exports.getAllUsers = async (req, res) => {
+  await db.query('SELECT id FROM users', (err, result) => {
     if (err) {
       return console.log(err);
     } else {
@@ -14,12 +14,12 @@ module.exports.getAllUsers = (req, res) => {
     }
   });
 }
-
-module.exports.createUser = (req, res) => {
+// создать пользователя
+module.exports.createUser = async (req, res) => {
 
   const { name, password } = req.body;
 
-  db.query("SELECT `id`, `password` FROM `users` WHERE id = '" + name + "'", (err, result) => {
+  await db.query("SELECT `id`, `password` FROM `users` WHERE id = '" + name + "'", (err, result) => {
     if (err) {
       res.status(400).send({ message: err });
     }
@@ -41,12 +41,12 @@ module.exports.createUser = (req, res) => {
     }
   });
 }
-
-module.exports.login = (req, res) => {
+// логин
+module.exports.login = async (req, res) => {
 
   const { name, password } = req.body;
   // проверка наличия пользователя в базе
-  db.query("SELECT `id`, `password` FROM `users` WHERE id = '" + name + "'", (err, result) => {
+  await db.query("SELECT `id`, `password` FROM `users` WHERE id = '" + name + "'", (err, result) => {
     if (err) {
       res.status(400).send({ message: err });
     } else if (result.length <= 0) {
@@ -73,7 +73,7 @@ module.exports.login = (req, res) => {
     }
   })
 }
-
+// обновление токенов 
 module.exports.refreshTokens = (req, res) => {
   const { refToken } = req.body;
   let payload;
@@ -98,10 +98,10 @@ module.exports.refreshTokens = (req, res) => {
   });
   req.user = payload;
 }
+// получить данные пользователя
+module.exports.getUser = async (req, res) => {
 
-module.exports.getUser = (req, res) => {
-
-  db.query("SELECT `id` FROM `users` WHERE id = '" + req.user.id + "'", (err, result) => {
+  await db.query("SELECT `id` FROM `users` WHERE id = '" + req.user.id + "'", (err, result) => {
     if (err) {
       res.status(400).send({ message: err });
     }
