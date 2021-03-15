@@ -54,14 +54,20 @@ module.exports.deleteFile = async (req, res) => {
               res.status(200).send({ message: 'Файл успешно удален' });
             }
           });
-
-
         }
-
       })
     }
   })
-
-
-
+  // Получить информацию о файле
+  module.exports.getFileInfo = async (req, res) => {
+    const id = req.params.id;
+    await db.query("SELECT `name`, `extension`, `mime-type`, `size`, `date` FROM `files` WHERE name = '" + id + "'", (err, result) => {
+      if (err) {
+        res.status(400).send({ message: err });
+      }
+      else {
+        res.status(200).send({ result });
+      }
+    })
+  }
 }
