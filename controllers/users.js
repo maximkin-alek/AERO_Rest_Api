@@ -1,6 +1,7 @@
 const db = require('../config/db');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const validator = require('validator');
 
 const { createAccessToken, createRefreshToken } = require('../utils/tokens');
 
@@ -19,6 +20,10 @@ module.exports.createUser = async (req, res) => {
 
   const { name, password } = req.body;
 
+  if(!validator.isEmail(name) || !validator.isMobilePhone(name)) {
+    return  res.status(400).send({ message: "Имя пользователя не валидно" });
+  }
+
   await db.query("SELECT `id`, `password` FROM `users` WHERE id = '" + name + "'", (err, result) => {
     if (err) {
       res.status(400).send({ message: err });
@@ -33,9 +38,14 @@ module.exports.createUser = async (req, res) => {
         if (err) {
           res.status(400).send({ message: err });
         } else {
+
+          const accessToken = createAccessToken(name);
+          const refreshToken = createRefreshToken(name);
+
           res.status(201).send({
-            message: 'Регистрация прошла успешно'
-          });
+            message: 'Регистрация прошла успешно',
+            accessToken: `Bearer ${accessToken}`,
+            refreshToken: refreshToken          });
         }
       })
     }
