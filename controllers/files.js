@@ -29,10 +29,10 @@ module.exports.addFile = (req, res) => {
 }
 // Получить список файлов с параметрами
 module.exports.getFilesInfo = (req, res) => {
-  
+
   const list_size = req.headers.list_size ? req.headers.list_size : 10;
-  let page = req.headers.page ? req.headers.page  : 0;
-  if( page <= 1) {
+  let page = req.headers.page ? req.headers.page : 0;
+  if (page <= 1) {
     page = 0
   }
   // вычисляем строчку отсчета
@@ -75,7 +75,10 @@ module.exports.getFileInfo = (req, res) => {
   db.query("SELECT `name`, `extension`, `mime-type`, `size`, `date` FROM `files` WHERE name = '" + id + "'", (err, result) => {
     if (err) {
       res.status(400).send({ message: err });
+    } else if (result.length <= 0) {
+      res.status(404).send({ message: 'Файл не найден' });
     }
+
     else {
       res.status(200).send({ result });
     }
