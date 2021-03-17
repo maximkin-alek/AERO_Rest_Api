@@ -29,9 +29,16 @@ module.exports.addFile = (req, res) => {
 }
 // Получить список файлов с параметрами
 module.exports.getFilesInfo = (req, res) => {
+  
   const list_size = req.headers.list_size ? req.headers.list_size : 10;
-  let page = req.headers.page ? (req.headers.page - 1) : 0;
-
+  let page = req.headers.page ? req.headers.page  : 0;
+  if( page <= 1) {
+    page = 0
+  }
+  // вычисляем строчку отсчета
+  if (page > 1) {
+    page = page * list_size - list_size;
+  }
   db.query("SELECT `name`, `extension`, `mime-type`, `size`, `date` FROM `files` LIMIT " + page + ", " + list_size + " ", (err, result) => {
     if (err) {
       res.status(500).send({ message: err });
