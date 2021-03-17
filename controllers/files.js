@@ -33,7 +33,10 @@ module.exports.addFile = async (req, res) => {
 }
 // Получить список файлов с параметрами
 module.exports.getFilesInfo = async (req, res) => {
-  await db.query("SELECT `name`, `extension`, `mime-type`, `size`, `date` FROM `files`", (err, result) => {
+  const list_size = req.headers.list_size ? req.headers.list_size : 10;
+  let page = req.headers.page ? (req.headers.page - 1) : 0;
+
+  await db.query("SELECT `name`, `extension`, `mime-type`, `size`, `date` FROM `files` LIMIT " + page + ", " + list_size + " ", (err, result) => {
     if (err) {
       res.status(500).send({ message: err });
     }
