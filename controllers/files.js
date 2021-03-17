@@ -16,27 +16,23 @@ function deleteFile(res, id, sendText) {
 }
 
 // Добавить файл
-module.exports.addFile = async (req, res) => {
+module.exports.addFile = (req, res) => {
   const { filename, originalname, mimetype, size } = req.file;
   const ext = originalname.substr(originalname.lastIndexOf('.') + 1);
-  try {
-    await db.query("INSERT INTO `files`( `name`, `extension`, `mime-type`, `size`, `date`) VALUES ('" + filename + "', '" + ext + "', '" + mimetype + "', '" + size + "', NOW())", (err, result) => {
-      if (err) {
-        res.status(400).send({ message: err });
-      }
-      res.status(200).send({ message: 'Файл успешно загружен' });
-    })
-  }
-  catch (err) {
-    res.status(400).send({ message: err });
-  }
+
+  db.query("INSERT INTO `files`( `name`, `extension`, `mime-type`, `size`, `date`) VALUES ('" + filename + "', '" + ext + "', '" + mimetype + "', '" + size + "', NOW())", (err, result) => {
+    if (err) {
+      res.status(400).send({ message: err });
+    }
+    res.status(200).send({ message: 'Файл успешно загружен' });
+  })
 }
 // Получить список файлов с параметрами
-module.exports.getFilesInfo = async (req, res) => {
+module.exports.getFilesInfo = (req, res) => {
   const list_size = req.headers.list_size ? req.headers.list_size : 10;
   let page = req.headers.page ? (req.headers.page - 1) : 0;
 
-  await db.query("SELECT `name`, `extension`, `mime-type`, `size`, `date` FROM `files` LIMIT " + page + ", " + list_size + " ", (err, result) => {
+  db.query("SELECT `name`, `extension`, `mime-type`, `size`, `date` FROM `files` LIMIT " + page + ", " + list_size + " ", (err, result) => {
     if (err) {
       res.status(500).send({ message: err });
     }
@@ -46,10 +42,10 @@ module.exports.getFilesInfo = async (req, res) => {
   })
 }
 // Удалить файл 
-module.exports.deleteFile = async (req, res) => {
+module.exports.deleteFile = (req, res) => {
 
   const id = req.params.id;
-  await db.query(" SELECT `id` FROM `files` WHERE name = '" + id + "'", (err, result) => {
+  db.query(" SELECT `id` FROM `files` WHERE name = '" + id + "'", (err, result) => {
     if (err) {
       res.status(400).send({ message: err });
     } else if (result.length <= 0) {
@@ -67,9 +63,9 @@ module.exports.deleteFile = async (req, res) => {
   })
 }
 // Получить информацию о файле
-module.exports.getFileInfo = async (req, res) => {
+module.exports.getFileInfo = (req, res) => {
   const id = req.params.id;
-  await db.query("SELECT `name`, `extension`, `mime-type`, `size`, `date` FROM `files` WHERE name = '" + id + "'", (err, result) => {
+  db.query("SELECT `name`, `extension`, `mime-type`, `size`, `date` FROM `files` WHERE name = '" + id + "'", (err, result) => {
     if (err) {
       res.status(400).send({ message: err });
     }
@@ -78,10 +74,10 @@ module.exports.getFileInfo = async (req, res) => {
     }
   })
 }
-module.exports.updateFile = async (req, res) => {
+module.exports.updateFile = (req, res) => {
   const id = req.params.id;
   // Проверяем наличие файла
-  await db.query(" SELECT `id` FROM `files` WHERE name = '" + id + "'", (err, result) => {
+  db.query(" SELECT `id` FROM `files` WHERE name = '" + id + "'", (err, result) => {
     if (err) {
       res.status(400).send({ message: err });
     } else if (result.length <= 0) {

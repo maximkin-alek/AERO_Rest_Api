@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken');
 const uuid = require('uuid');
+const { secretKey } = require('../config/secret-key');
 
 module.exports.createAccessToken = (userId) => {
   return jwt.sign(
@@ -7,7 +8,7 @@ module.exports.createAccessToken = (userId) => {
       id: userId,
       type: 'access'
     },
-    'secret-key',
+    secretKey.key,
     { expiresIn: 60 * 10 }
   );
 }
@@ -18,7 +19,7 @@ module.exports.createRefreshToken = (userId) => {
       type: 'refresh',
       userId: userId
     },
-    'secret-key',
+    secretKey.key,
     { expiresIn: 60 * 60 * 10 }
   );
 }

@@ -1,62 +1,72 @@
+const uuid = require('uuid');
 const db = require('../config/db');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const validator = require('validator');
+const { secretKey } = require('../config/secret-key');
+
+// Обновление ключа токена
+function updateSecretKey() {
+  secretKey.key = uuid.v4();
+}
+updateSecretKey();
 
 const { createAccessToken, createRefreshToken } = require('../utils/tokens');
 
 // получить список пользователей
-module.exports.getAllUsers = async (req, res) => {
-  await db.query('SELECT id FROM users', (err, result) => {
+module.exports.getAllUsers = (req, res) => {
+  db.query('SELECT id FROM users', (err, result) => {
     if (err) {
-      return console.log(err);
+      res.status(400).send({ message: err });
     } else {
       res.send(result);
     }
   });
 }
 // создать пользователя
-module.exports.createUser = async (req, res) => {
+module.exports.createUser = (req, res) => {
 
   const { name, password } = req.body;
 
-  if(!validator.isEmail(name) || !validator.isMobilePhone(name)) {
-    return  res.status(400).send({ message: "Имя пользователя не валидно" });
+  //  валидация
+  if (validator.isEmail(name) || validator.isMobilePhone(name)) {
+    db.query("SELECT `id`, `password` FROM `users` WHERE id = '" + name + "'", (err, result) => {
+      if (err) {
+        res.status(400).send({ message: err });
+      }
+      else if (result.length > 0) {
+        res.status(409).send({ message: 'Пользователь с таким id уже существует' });
+      } else {
+        const salt = bcrypt.genSaltSync(15);
+        const hash = bcrypt.hashSync(password, salt);
+        db.query("INSERT INTO `users`(`id`, `password`) VALUES ('" + name + "','" + hash + "')", (err, result) => {
+          if (err) {
+            res.status(400).send({ message: err });
+          } else {
+
+            const accessToken = createAccessToken(name);
+            const refreshToken = createRefreshToken(name);
+
+            res.status(201).send({
+              message: 'Регистрация прошла успешно',
+              accessToken: `Bearer ${accessToken}`,
+              refreshToken: refreshToken
+            });
+          }
+        })
+      }
+    });
+  } else {
+    return res.status(400).send({ message: "Имя пользователя не валидно" });
   }
 
-  await db.query("SELECT `id`, `password` FROM `users` WHERE id = '" + name + "'", (err, result) => {
-    if (err) {
-      res.status(400).send({ message: err });
-    }
-    else if (result.length > 0) {
-      res.status(409).send({ message: 'Пользователь с таким id уже существует' });
-      console.log(result)
-    } else {
-      const salt = bcrypt.genSaltSync(15);
-      const hash = bcrypt.hashSync(password, salt);
-      db.query("INSERT INTO `users`(`id`, `password`) VALUES ('" + name + "','" + hash + "')", (err, result) => {
-        if (err) {
-          res.status(400).send({ message: err });
-        } else {
-
-          const accessToken = createAccessToken(name);
-          const refreshToken = createRefreshToken(name);
-
-          res.status(201).send({
-            message: 'Регистрация прошла успешно',
-            accessToken: `Bearer ${accessToken}`,
-            refreshToken: refreshToken          });
-        }
-      })
-    }
-  });
 }
 // логин
-module.exports.login = async (req, res) => {
+module.exports.login = (req, res) => {
 
   const { name, password } = req.body;
   // проверка наличия пользователя в базе
-  await db.query("SELECT `id`, `password` FROM `users` WHERE id = '" + name + "'", (err, result) => {
+  db.query("SELECT `id`, `password` FROM `users` WHERE id = '" + name + "'", (err, result) => {
     if (err) {
       res.status(400).send({ message: err });
     } else if (result.length <= 0) {
@@ -88,7 +98,7 @@ module.exports.refreshTokens = (req, res) => {
   const { refToken } = req.body;
   let payload;
   try {
-    payload = jwt.verify(refToken, 'secret-key');
+    payload = jwt.verify(refToken, secretKey.key);
     if (payload.type !== 'refresh') {
       res.status(401).send({
         message: 'Invalid token',
@@ -109,9 +119,9 @@ module.exports.refreshTokens = (req, res) => {
   req.user = payload;
 }
 // получить данные пользователя
-module.exports.getUser = async (req, res) => {
+module.exports.getUser = (req, res) => {
 
-  await db.query("SELECT `id` FROM `users` WHERE id = '" + req.user.id + "'", (err, result) => {
+  db.query("SELECT `id` FROM `users` WHERE id = '" + req.user.id + "'", (err, result) => {
     if (err) {
       res.status(400).send({ message: err });
     }
@@ -119,4 +129,14 @@ module.exports.getUser = async (req, res) => {
       res.status(200).send(result);
     }
   })
+}
+// Выход из системы
+module.exports.logout = (req, res) => {
+  try {
+    updateSecretKey();
+    res.status(200).send({ message: 'Вы вышли из системы' });
+  } catch (err) {
+    res.status(500).send({ message: err });
+  }
+
 }
