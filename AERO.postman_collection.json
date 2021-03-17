@@ -1,0 +1,522 @@
+{
+	"info": {
+		"_postman_id": "445d90ab-f99f-4ef9-8018-77b4f4925dd7",
+		"name": "AERO",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Создать пользователя",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"+7954-44-777-11\",\r\n    \"password\": \"sdg654qw21_$$sd\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/signup",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"signup"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "alex-m@lail.ru",
+							"disabled": true
+						},
+						{
+							"key": "password",
+							"value": "5sdg63weg321wegq",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Загрузить файл",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"+7954-44-777-11\",\r\n    \"password\": \"sdg654qw21_$$sd\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/signup",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"signup"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "alex-m@lail.ru",
+							"disabled": true
+						},
+						{
+							"key": "password",
+							"value": "5sdg63weg321wegq",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Получить список файлов c заданными параметрами вывода",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImNhdEBsaXN0LmNvbSIsInR5cGUiOiJhY2Nlc3MiLCJpYXQiOjE2MTYwMDA3NDUsImV4cCI6MTYxNjAwMTM0NX0.nxiOvPaPdtiaCUB3GAqASdsVWBoz9WhnLoj_wfpWM18",
+						"type": "text"
+					},
+					{
+						"key": "list_size",
+						"value": "2",
+						"type": "text"
+					},
+					{
+						"key": "page",
+						"value": "5",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/file/list",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"file",
+						"list"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Удалить файл",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImNhdEBsaXN0LmNvbSIsInR5cGUiOiJhY2Nlc3MiLCJpYXQiOjE2MTU5MTUxMTcsImV4cCI6MTYxNTkxNTcxN30.IuUUv1-3alsEgbjMkxKdzdBgmCJ7eRjdezEyhuU1Q9s",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/file/delete/1615824755181-about-33.jpg",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"file",
+						"delete",
+						"1615824755181-about-33.jpg"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Обновить файл",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImNhdEBsaXN0LmNvbSIsInR5cGUiOiJhY2Nlc3MiLCJpYXQiOjE2MTU5MTUxMTcsImV4cCI6MTYxNTkxNTcxN30.IuUUv1-3alsEgbjMkxKdzdBgmCJ7eRjdezEyhuU1Q9s",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/file/update/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"file",
+						"update",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Получить всех пользователей",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImNhdEBsaXN0LmNvbSIsInR5cGUiOiJhY2Nlc3MiLCJpYXQiOjE2MTYwMDI0ODMsImV4cCI6MTYxNjAwMzA4M30.g7lxz0xTwW636y1lrCBq-u3_QUPPxSkX3shgwt6LmPI",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/users",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Выйти из системы",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImNhdEBsaXN0LmNvbSIsInR5cGUiOiJhY2Nlc3MiLCJpYXQiOjE2MTU5MTMxNjYsImV4cCI6MTYxNTkxMzc2Nn0.gdsLfQpKGdRnTUuOpidIRSufEfCwS0HKiprlmvZjf10",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/users",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Получить id пользователя",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImJsYWNrY2F0QGxpc3QuY29tIiwidHlwZSI6ImFjY2VzcyIsImlhdCI6MTYxNTkxOTk3NSwiZXhwIjoxNjE1OTIwNTc1fQ.NzRBoKyJxWvRQNyHX2mr3i2ox4fRDGo2Yr52DnkQ544",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/users/info",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"users",
+						"info"
+					],
+					"query": [
+						{
+							"key": "authorization",
+							"value": "",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Получить данные файла по id",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "12345",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/users",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"users"
+					],
+					"query": [
+						{
+							"key": "authorization",
+							"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Iis3OTU0LTQ0LTc3Ny0xMSIsImlhdCI6MTYxNTcyMTUwOSwiZXhwIjoxNjE1NzIyMTA5fQ.3w1pQ9hfMcL-q59WGVgPvC_NXexhJrXFd3GJGBoPImo",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Получить файл по id",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImNhdEBsaXN0LmNvbSIsInR5cGUiOiJhY2Nlc3MiLCJpYXQiOjE2MTU5MTM0MTUsImV4cCI6MTYxNTkxNDAxNX0.6Rvc4LOdnor8ViNEXxuQkenFYtH1mkaoQLcg9BTvolo",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/file/download/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"file",
+						"download",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Войти",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"+7954-44-777-11\",\r\n    \"password\": \"sdg654qw21_$$sd\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/signin",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"signin"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "alex-m@lail.ru",
+							"disabled": true
+						},
+						{
+							"key": "password",
+							"value": "5sdg63weg321wegq",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Refresh token",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"refToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImJjMzM0YjY4LTE2ZGMtNGJmMy1hOWE1LWFlYzU4ZDQ3ZDQwYiIsInR5cGUiOiJyZWZyZXNoIiwidXNlcklkIjoiY2F0QGxpc3QuY29tIiwiaWF0IjoxNjE2MDAzNDUyLCJleHAiOjE2MTYwMzk0NTJ9.IWYAwoS1B4eBx8CVxPMWMjjKxnpT5--UwFPNczhHiaI\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/signin/new_token",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"signin",
+						"new_token"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "alex-m@lail.ru",
+							"disabled": true
+						},
+						{
+							"key": "password",
+							"value": "5sdg63weg321wegq",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

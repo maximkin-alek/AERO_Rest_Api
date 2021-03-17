@@ -1,0 +1,32 @@
+{
+  "name": "aero_rest_api",
+  "version": "0.0.1",
+  "description": "rest api",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/maximkin-alek/AERO_Rest_Api.git"
+  },
+  "author": "Alexander Maximkin",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/maximkin-alek/AERO_Rest_Api/issues"
+  },
+  "homepage": "https://github.com/maximkin-alek/AERO_Rest_Api#readme",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "multer": "^1.4.2",
+    "mysql": "^2.18.1",
+    "uuid": "^8.3.2",
+    "validator": "^13.5.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7"
+  }
+}
