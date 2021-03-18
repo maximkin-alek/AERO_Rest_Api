@@ -13,7 +13,7 @@ REST Api сервер на ExpressJs.
 
 
 ## Стэк технологий:
-Express, Mysql, bcryptjs, jsonwebtoken, validator.
+Express, Mysql, multer, bcryptjs, jsonwebtoken, validator.
 
 ## Инструкции по запуску:
 - Скачать или склонировать репозитори
