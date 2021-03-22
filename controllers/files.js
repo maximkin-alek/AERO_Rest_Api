@@ -48,6 +48,21 @@ module.exports.getFilesInfo = (req, res) => {
     }
   })
 }
+// Скачать файл
+module.exports.downloadFile = (req, res) => {
+  const id = req.params.id;
+  const filePath = path.join(__dirname, `../my-uploads/${id}`);
+  fs.access(filePath, fs.constants.R_OK, err => {
+    if (err) {
+      res.statusCode = 404;
+      res.end("Файл не найден");
+    }
+    else {
+      fs.createReadStream(filePath).pipe(res);
+    }
+  });
+}
+
 // Удалить файл 
 module.exports.deleteFile = (req, res) => {
 
@@ -84,6 +99,7 @@ module.exports.getFileInfo = (req, res) => {
     }
   })
 }
+// Обновить файл
 module.exports.updateFile = (req, res) => {
   const id = req.params.id;
   // Проверяем наличие файла
